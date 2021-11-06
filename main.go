@@ -4,12 +4,14 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"user-api/src/config"
 	"user-api/src/router"
 )
 
 func main() {
-	fmt.Println("Running API")
+	config.Load()
+	fmt.Printf("API running on port: %d", config.Port)
 	r := router.Generate()
 
-	log.Fatal(http.ListenAndServe(":5000", r))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Port), r))
 }
