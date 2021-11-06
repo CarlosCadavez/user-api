@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"strings"
 	"user-api/src/database"
 	"user-api/src/models"
 	"user-api/src/repositories"
@@ -47,7 +48,23 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetAllUsers(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Shoud retrieve a list of users"))
+	nameOrNick := strings.ToLower(r.URL.Query().Get("user"))
+	db, err := database.Connect()
+	if err != nil {
+		responses.Err(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	defer db.Close()
+
+	repository := repositories.NewUserRepository(db)
+	users, err := repository.GetUsers(nameOrNick)
+	if err != nil {
+		responses.Err(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	responses.JSON(w, http.StatusOK, users)
 }
 
 func GetUser(w http.ResponseWriter, r *http.Request) {
