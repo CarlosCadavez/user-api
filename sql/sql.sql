@@ -11,3 +11,6 @@ CREATE TABLE users(
     password varchar(50) not null unique,
     createAt timestamp default current_timestamp()
 ) ENGINE=INNODB;
+
+CREATE USER 'golangdev' @ 'localhost' IDENTIFIED BY 'golangdev';
+GRANT ALL PRIVILEGES ON user.* TO 'golangdev'@'localhost';
