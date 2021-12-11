@@ -8,8 +8,8 @@ CREATE TABLE users(
     name varchar(50) not null,
     nick varchar(50) not null unique,
     email varchar(50) not null unique,
-    password varchar(50) not null unique,
-    createAt timestamp default current_timestamp()
+    password varchar(50) not null,
+    createdAt timestamp default current_timestamp()
 ) ENGINE=INNODB;
 
 CREATE USER 'golangdev'@'localhost' IDENTIFIED BY 'golangdev';
