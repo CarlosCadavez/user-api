@@ -12,5 +12,5 @@ CREATE TABLE users(
     createAt timestamp default current_timestamp()
 ) ENGINE=INNODB;
 
-CREATE USER 'golangdev' @ 'localhost' IDENTIFIED BY 'golangdev';
+CREATE USER 'golangdev'@'localhost' IDENTIFIED BY 'golangdev';
 GRANT ALL PRIVILEGES ON user.* TO 'golangdev'@'localhost';
