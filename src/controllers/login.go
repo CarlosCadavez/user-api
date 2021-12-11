@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"user-api/src/auth"
 	"user-api/src/database"
 	"user-api/src/models"
 	"user-api/src/repositories"
@@ -44,6 +45,12 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Write([]byte("You are logged in"))
+	token, err := auth.CreateToken(userOnDb.ID)
+	if err != nil {
+		responses.Err(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	w.Write([]byte(token))
 
 }
