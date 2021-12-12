@@ -13,7 +13,5 @@ func main() {
 	fmt.Printf("API running on port: %d", config.Port)
 	r := router.Generate()
 
-	fmt.Print(config.SecretKey)
-
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Port), r))
 }
